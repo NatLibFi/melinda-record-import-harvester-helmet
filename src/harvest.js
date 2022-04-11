@@ -79,7 +79,7 @@ export async function startApp(config, riApiClient = false) {
     }
 
     function getPollChangeTime() {
-      if (fs.existsSync(changeTimestampFile)) {
+      if (fs.existsSync(changeTimestampFile)) { // eslint-disable-line functional/no-conditional-statement
         try {
           const txtData = fs.readFileSync(changeTimestampFile, 'utf8');
 
