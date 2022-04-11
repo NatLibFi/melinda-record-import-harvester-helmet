@@ -80,8 +80,19 @@ export async function startApp(config, riApiClient = false) {
 
     function getPollChangeTime() {
       if (fs.existsSync(changeTimestampFile)) {
-        const data = JSON.parse(fs.readFileSync(changeTimestampFile, 'utf8'));
-        return moment(data.timestamp);
+        try {
+          const txtData = fs.readFileSync(changeTimestampFile, 'utf8');
+
+          if (txtData.length < 2) {
+            return moment();
+          }
+
+          const data = JSON.parse(txtData);
+          return moment(data.timestamp);
+        } catch (error) {
+          logger.error(`time stamp loading failed: ${error.message}`);
+          return moment();
+        }
       }
 
       if (pollChangeTimestamp) {
