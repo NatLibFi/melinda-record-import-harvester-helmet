@@ -4,5 +4,8 @@ coverage
 dist
 .nyc_output
 .env
+.env.local
+.env.openshift
+.env.*
 .poll-change-timestamp.json
 test

@@ -184,7 +184,7 @@ export async function startApp(config, riApiClient = false) {
 
   async function createBlob(payload) {
     const id = await riApiClient.createBlob({
-      blob: payload,
+      blob: JSON.stringify(payload),
       type: blobContentType,
       profile: profileId
     });
