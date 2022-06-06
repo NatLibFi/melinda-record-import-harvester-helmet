@@ -4,10 +4,8 @@ import moment from 'moment';
 import fetch from 'node-fetch';
 import HttpStatusCodes from 'http-status-codes';
 import nodeUtils from 'util';
-import {Utils} from '@natlibfi/melinda-commons';
+import {createLogger} from '@natlibfi/melinda-backend-commons';
 import filterRecord from './filter';
-
-const {createLogger} = Utils;
 
 export default function ({recordsCallback, apiURL, apiKey, apiSecret, recordsFetchLimit, pollInterval, pollChangeTimestamp, changeTimestampFile, earliestCatalogTime = moment(), onlyOnce = false}) {
   const logger = createLogger();
