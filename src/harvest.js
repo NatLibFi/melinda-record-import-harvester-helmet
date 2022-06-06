@@ -98,7 +98,7 @@ export default function ({recordsCallback, apiURL, apiKey, apiSecret, recordsFet
         logger.log('debug', `${filtered.length}/${result.entries.length} records passed the filter`);
 
         if (filtered.length > 0) { // eslint-disable-line functional/no-conditional-statement
-          await recordsCallback(filtered);
+          await recordsCallback(JSON.stringify(filtered));
         }
 
         if (result.entries.length === recordsFetchLimit) {
