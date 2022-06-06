@@ -1,6 +1,4 @@
-import {Utils} from '@natlibfi/melinda-commons';
-
-const {readEnvironmentVariable} = Utils;
+import {readEnvironmentVariable} from '@natlibfi/melinda-backend-commons';
 
 // Default is 30 minutes
 export const POLL_INTERVAL = readEnvironmentVariable('POLL_INTERVAL', {defaultValue: 1800000, format: v => Number(v)});
