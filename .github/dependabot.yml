@@ -37,8 +37,4 @@ updates:
   #   labels:
   #     - "npm major dependencies"
   #   reviewers:
-<<<<<<< HEAD
   #     - "natlibfi/melinda-js-lead"
-=======
-  #     - "natlibfi/melinda-js-lead"
->>>>>>> origin/master
