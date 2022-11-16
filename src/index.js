@@ -1,22 +1,43 @@
-import {Harvester} from '@natlibfi/melinda-record-import-commons';
-import createHarvestCallback from './harvest';
+import {handleInterrupt, createLogger} from '@natlibfi/melinda-backend-commons';
+import * as config from './config';
+import {startApp} from './harvest';
+import {createApiClient as createRecordImportApiClient} from '@natlibfi/melinda-record-import-commons';
 
-const {startHarvester} = Harvester;
+const logger = createLogger();
+run();
 
-import {
-  RECORDS_FETCH_LIMIT, POLL_INTERVAL, EARLIEST_CATALOG_TIME,
-  POLL_CHANGE_TIMESTAMP, CHANGE_TIMESTAMP_FILE,
-  HELMET_API_URL, HELMET_API_KEY, HELMET_API_SECRET
-} from './config';
+async function run() {
+  registerInterruptionHandlers();
 
-startHarvester(({recordsCallback}) => createHarvestCallback({
-  recordsCallback,
-  apiURL: HELMET_API_URL,
-  apiKey: HELMET_API_KEY,
-  apiSecret: HELMET_API_SECRET,
-  pollChangeTimestamp: POLL_CHANGE_TIMESTAMP,
-  pollInterval: POLL_INTERVAL,
-  changeTimestampFile: CHANGE_TIMESTAMP_FILE,
-  recordsFetchLimit: RECORDS_FETCH_LIMIT,
-  earliestCatalogTime: EARLIEST_CATALOG_TIME
-}));
+  const riApiClient = createRecordImportApiClient(config.recordImportApiOptions);
+
+  await startApp(config, riApiClient);
+
+  function registerInterruptionHandlers() {
+    process
+      .on('SIGTERM', handleSignal)
+      .on('SIGINT', handleInterrupt)
+      .on('uncaughtException', ({stack}) => {
+        handleTermination({code: 1, message: stack});
+      })
+      .on('unhandledRejection', ({stack}) => {
+        handleTermination({code: 1, message: stack});
+      });
+
+    function handleSignal(signal) {
+      handleTermination({code: 1, message: `Received ${signal}`});
+    }
+  }
+
+  function handleTermination({code = 0, message = false}) {
+    logMessage(message);
+
+    process.exit(code); // eslint-disable-line no-process-exit
+
+    function logMessage(message) {
+      if (message) {
+        return logger.error(message);
+      }
+    }
+  }
+}
