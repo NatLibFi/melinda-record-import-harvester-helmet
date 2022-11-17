@@ -24,7 +24,7 @@ Helmet record harvester for the Melinda record batch import system . Polls Helme
 | profileId           |                            | 'USER'                      | Automation |
 | blobContentType     |                            | 'application/json'          | Automation |
 | pollChangeTimestamp |                            | null                        | Both       |
-| changeTimestampFile | /state/<file> in container | .poll-change-timestamp.json | Both       |
+| changeTimestampFile | /state/\<file\> in container | .poll-change-timestamp.json | Both       |
 | earliestCatalogTime |                            | 2018-09-01                  | Both       |
 | pollInterval        | Default is 30 minutes      | 1800000                     | Both       |
 | recordsFetchLimit   |                            | 1000                        | Both       |
