@@ -19,16 +19,16 @@ Helmet record harvester for the Melinda record batch import system . Polls Helme
 | API_CLIENT_USER_AGENT                |             | No        | Automation |
 
 ### Parametter envs envs
-| name                | description           | default                     | Used in    |
-|---------------------|-----------------------|-----------------------------|------------|
-| profileId           |                       | 'USER'                      | Automation |
-| blobContentType     |                       | 'application/json'          | Automation |
-| pollChangeTimestamp |                       | null                        | Both       |
-| changeTimestampFile |                       | .poll-change-timestamp.json | Both       |
-| earliestCatalogTime |                       | 2018-09-01                  | Both       |
-| pollInterval        | Default is 30 minutes | 1800000                     | Both       |
-| recordsFetchLimit   |                       | 1000                        | Both       |
-| onlyOnce            |                       | false                       | Cli        |
+| name                | description                | default                     | Used in    |
+|---------------------|----------------------------|-----------------------------|------------|
+| profileId           |                            | 'USER'                      | Automation |
+| blobContentType     |                            | 'application/json'          | Automation |
+| pollChangeTimestamp |                            | null                        | Both       |
+| changeTimestampFile | /state/<file> in container | .poll-change-timestamp.json | Both       |
+| earliestCatalogTime |                            | 2018-09-01                  | Both       |
+| pollInterval        | Default is 30 minutes      | 1800000                     | Both       |
+| recordsFetchLimit   |                            | 1000                        | Both       |
+| onlyOnce            |                            | false                       | Cli        |
 
 ## License and copyright
 
