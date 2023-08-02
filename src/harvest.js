@@ -51,7 +51,7 @@ export async function startApp(config, riApiClient = false) {
     }
 
     function getPollChangeTime() {
-      if (fs.existsSync(changeTimestampFile)) { // eslint-disable-line functional/no-conditional-statement
+      if (fs.existsSync(changeTimestampFile)) { // eslint-disable-line functional/no-conditional-statements
         try {
           const txtData = fs.readFileSync(changeTimestampFile, 'utf8');
 
@@ -128,7 +128,7 @@ export async function startApp(config, riApiClient = false) {
         const filtered = result.entries.filter(r => filterRecord(r, earliestCatalogTime));
         logger.debug(`${filtered.length}/${result.entries.length} records passed the filter`);
 
-        if (filtered.length > 0) { // eslint-disable-line functional/no-conditional-statement
+        if (filtered.length > 0) { // eslint-disable-line functional/no-conditional-statements
           await recordsCallback(filtered);
         }
 
@@ -142,7 +142,7 @@ export async function startApp(config, riApiClient = false) {
         return logger.debug('No more records this time');
       }
 
-      if (response.status === httpStatus.NOT_FOUND) { // eslint-disable-line functional/no-conditional-statement
+      if (response.status === httpStatus.NOT_FOUND) { // eslint-disable-line functional/no-conditional-statements
         return logger.debug('No records found');
       }
 
