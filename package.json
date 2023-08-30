@@ -14,7 +14,7 @@
 		"url": "git@github.com:natlibfi/melinda-record-import-harvester-helmet.git"
 	},
 	"license": "MIT",
-	"version": "1.0.2",
+	"version": "1.0.3-alpha.1",
 	"main": "./dist/index.js",
 	"engines": {
 		"node": ">=16"
