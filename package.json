@@ -28,7 +28,6 @@
 		"test": "npm run lint && npm run test:base",
 		"test:base": "cross-env NODE_ENV=test nyc mocha --package ./package.json",
 		"test:dev": "npm run lint:dev && npm run test:base",
-		"build:dev": "npm run build && npm run check-deps",
 		"dev": "cross-env DEBUG=@natlibfi/* NODE_ENV=debug nodemon --watch src --exec 'npm run test:dev'",
 		"dev2": "nodemon",
 		"dev:debug": "cross-env LOG_LEVEL=debug DEBUG=@natlibfi/* NODE_ENV=test nodemon"
