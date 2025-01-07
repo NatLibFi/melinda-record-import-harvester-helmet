@@ -12,7 +12,7 @@ async function cli() {
   const logger = createLogger();
   const args = yargs(process.argv.slice(2))
     .scriptName('melinda-record-import-harvester-helmet')
-    .epilog('Copyright (C) 2019-2022 University Of Helsinki (The National Library Of Finland)')
+    .epilog('Copyright (C) 2019-2025 University Of Helsinki (The National Library Of Finland)')
     .usage('$0 <outputDirectory> [options] and env variable info in README')
     .showHelpOnFail(true)
     .example([['$ node $0/dist/cli.js ']])
