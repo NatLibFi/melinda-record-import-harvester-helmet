@@ -33,9 +33,9 @@
 		"dev:debug": "cross-env LOG_LEVEL=debug DEBUG=@natlibfi/* NODE_ENV=test nodemon"
 	},
 	"dependencies": {
-		"@babel/runtime": "^7.26.0",
-		"@natlibfi/melinda-backend-commons": "^2.3.6",
-		"@natlibfi/melinda-commons": "^13.0.18",
+		"@babel/runtime": "^7.27.6",
+		"@natlibfi/melinda-backend-commons": "^2.3.9",
+		"@natlibfi/melinda-commons": "^13.0.21",
 		"@natlibfi/melinda-record-import-commons": "^11.0.1",
 		"http-status": "^2.1.0",
 		"moment": "^2.30.1",
@@ -44,20 +44,20 @@
 		"yargs": "^17.7.2"
 	},
 	"devDependencies": {
-		"@babel/cli": "^7.26.4",
-		"@babel/core": "^7.26.0",
-		"@babel/node": "^7.26.0",
-		"@babel/preset-env": "^7.26.0",
-		"@babel/register": "^7.25.9",
-		"@natlibfi/eslint-config-melinda-backend": "^3.0.5",
+		"@babel/cli": "^7.27.2",
+		"@babel/core": "^7.27.4",
+		"@babel/node": "^7.27.1",
+		"@babel/preset-env": "^7.27.2",
+		"@babel/register": "^7.27.1",
+		"@natlibfi/eslint-config-melinda-backend": "^3.0.6",
 		"babel-plugin-istanbul": "^7.0.0",
 		"babel-plugin-rewire": "^1.2.0",
 		"chai": "^4.5.0",
 		"cross-env": "^7.0.3",
 		"eslint": "^8.57.1",
-		"eslint-plugin-import": "^2.31.0",
-		"mocha": "^11.0.1",
-		"nodemon": "^3.1.9",
+		"eslint-plugin-import": "^2.32.0",
+		"mocha": "^11.7.1",
+		"nodemon": "^3.1.10",
 		"nyc": "^17.1.0"
 	},
 	"eslintConfig": {
