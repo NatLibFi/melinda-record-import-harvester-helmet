@@ -1,11 +1,10 @@
 import fs from 'fs';
 import {URL} from 'url';
 import moment from 'moment';
-import fetch from 'node-fetch';
 import httpStatus from 'http-status';
 import {promisify} from 'util';
-import filterRecord from './filter';
 import {createLogger} from '@natlibfi/melinda-backend-commons';
+import filterRecord from './filter.js';
 
 export async function startApp(config, riApiClient = false) {
   const {
@@ -32,8 +31,8 @@ export async function startApp(config, riApiClient = false) {
   async function process({authorizationToken, pollChangeTime} = {}) {
     const setTimeoutPromise = promisify(setTimeout);
 
-    pollChangeTime = pollChangeTime || getPollChangeTime(); // eslint-disable-line no-param-reassign
-    authorizationToken = await validateAuthorizationToken(authorizationToken); // eslint-disable-line require-atomic-updates, no-param-reassign
+    pollChangeTime = pollChangeTime || getPollChangeTime();
+    authorizationToken = await validateAuthorizationToken(authorizationToken);
 
     const timeBeforeFetching = moment();
 
@@ -51,7 +50,7 @@ export async function startApp(config, riApiClient = false) {
     }
 
     function getPollChangeTime() {
-      if (fs.existsSync(changeTimestampFile)) { // eslint-disable-line functional/no-conditional-statements
+      if (fs.existsSync(changeTimestampFile)) {
         try {
           const txtData = fs.readFileSync(changeTimestampFile, 'utf8');
 
@@ -82,7 +81,7 @@ export async function startApp(config, riApiClient = false) {
 
     async function validateAuthorizationToken(token) {
       if (token) {
-        const response = await fetch(`${helmetApiOptions.helmetApiUrl}/info/token`);
+        const response = await fetch(`${helmetApiOptions.helmetApiUrl}/info/token`, {method: 'get'});
         if (response.status === httpStatus.OK) {
           return token;
         }
@@ -94,7 +93,8 @@ export async function startApp(config, riApiClient = false) {
 
       async function authenticate() {
         const credentials = `${helmetApiOptions.helmetApiKey}:${helmetApiOptions.helmetApiSecret}`;
-        const response = await fetch(`${helmetApiOptions.helmetApiUrl}/token`, {
+        const url = new URL(`${helmetApiOptions.helmetApiUrl}/token`);
+        const response = await fetch(url, {
           method: 'POST', headers: {
             Authorization: `Basic ${Buffer.from(credentials).toString('base64')}`
           }
@@ -128,7 +128,7 @@ export async function startApp(config, riApiClient = false) {
         const filtered = result.entries.filter(r => filterRecord(r, earliestCatalogTime));
         logger.debug(`${filtered.length}/${result.entries.length} records passed the filter`);
 
-        if (filtered.length > 0) { // eslint-disable-line functional/no-conditional-statements
+        if (filtered.length > 0) {
           await recordsCallback(filtered);
         }
 
@@ -142,7 +142,7 @@ export async function startApp(config, riApiClient = false) {
         return logger.debug('No more records this time');
       }
 
-      if (response.status === httpStatus.NOT_FOUND) { // eslint-disable-line functional/no-conditional-statements
+      if (response.status === httpStatus.NOT_FOUND) {
         return logger.debug('No records found');
       }
 
