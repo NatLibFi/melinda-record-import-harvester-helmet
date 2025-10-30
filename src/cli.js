@@ -1,10 +1,9 @@
-import {startApp} from './harvest';
 import fs from 'fs';
 import path from 'path';
 import yargs from 'yargs';
-import {sync as rmdir} from 'rimraf';
-import * as config from './config';
 import {createLogger} from '@natlibfi/melinda-backend-commons';
+import * as config from './config.js';
+import {startApp} from './harvest.js';
 
 cli();
 
@@ -15,7 +14,8 @@ async function cli() {
     .epilog('Copyright (C) 2019-2025 University Of Helsinki (The National Library Of Finland)')
     .usage('$0 <outputDirectory> [options] and env variable info in README')
     .showHelpOnFail(true)
-    .example([['$ node $0/dist/cli.js ']])
+    .example([['$ node dist/cli.js ']])
+    .example([['$ node dist/cli.js ./results -oy']])
     .env('HARVEST_HELMET')
     .positional('outputDirectory', {type: 'string', describe: 'Directory to write files to'})
     .options({
@@ -30,7 +30,7 @@ async function cli() {
 
       if (fs.existsSync(outputDirectory)) {
         if (args.overwriteDirectory) {
-          rmdir(outputDirectory);
+          fs.rmdir(outputDirectory, () => true);
           return true;
         }
 
@@ -45,7 +45,7 @@ async function cli() {
   const [outputDirectory] = args._;
   logger.info(`Creating folder ${outputDirectory}`);
   fs.mkdirSync(outputDirectory);
-  let count = 0; // eslint-disable-line functional/no-let
+  let count = 0;
 
   try {
     await startApp({
@@ -53,7 +53,7 @@ async function cli() {
       onlyOnce: args.onlyOnce,
       recordsCallback: records => {
         logger.debug(`Writing file ${count}`);
-        const data = JSON.stringify(records, undefined, 2); // eslint-disable-line callback-return
+        const data = JSON.stringify(records, undefined, 2);
         fs.writeFileSync(path.join(outputDirectory, String(count)), data);
         count += 1;
       }
