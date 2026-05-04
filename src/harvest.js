@@ -43,8 +43,8 @@ export async function startApp(config, riApiClient = false) {
     if (!onlyOnce) {
       logger.info(`Waiting ${pollInterval / 1000} seconds before polling again`);
 
-      await setTimeoutPromise(pollInterval);
       writePollChangeTimestamp(timeBeforeFetching);
+      await setTimeoutPromise(pollInterval);
 
       return process({authorizationToken, pollChangeTime: timeBeforeFetching.add(1, 'seconds')});
     }
@@ -81,7 +81,13 @@ export async function startApp(config, riApiClient = false) {
 
     async function validateAuthorizationToken(token) {
       if (token) {
-        const response = await fetch(`${helmetApiOptions.helmetApiUrl}/info/token`, {method: 'get'});
+        const response = await fetch(`${helmetApiOptions.helmetApiUrl}/info/token`, {
+          method: 'get',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: 'application/json'
+          }
+        });
         if (response.status === httpStatus.OK) {
           return token;
         }

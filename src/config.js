@@ -22,7 +22,7 @@ export const recordImportApiOptions = {
   recordImportApiUrl: readEnvironmentVariable('RECORD_IMPORT_API_URL', {defaultValue: 'cli'}),
   userAgent: readEnvironmentVariable('API_CLIENT_USER_AGENT', {defaultValue: '_RECORD-IMPORT-HARVESTER-HELMET'}),
   allowSelfSignedApiCert: readEnvironmentVariable('ALLOW_API_SELF_SIGNED', {defaultValue: false, format: parseBoolean}),
-  cfHeader: readEnvironmentVariable('CF_HEADER', {defaultValue: undefined})
+  cfHeader: readEnvironmentVariable('CF_HEADER', {defaultValue: false})
 };
 
 export const keycloakOptions = {
